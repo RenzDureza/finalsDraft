@@ -1,18 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner choiceInput = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         int choice;
 
-        // Im thinking of using a java collection para sa pag add ng flight like yung <List>
-        // ex
-            // List<Flight> flights = new ArrayList<>();
-            // flights.add(new Flight("EBX123", "MNL - CN", "9:00 - 10:00", blah blah));
-            // flights.add(new Flight("EBX123", "MNL - CN", "9:00 - 10:00", blah blah));
-            // flights.add(new Flight("EBX123", "MNL - CN", "9:00 - 10:00", blah blah));
+        List<Flight> flightList = new ArrayList<>();
+        flightList.add(new Flight("EBX123", "PH - CN", "09:00 - 14:00"));
+        flightList.add(new Flight("EBX142", "PH - KR", "04:00 - 08:00"));
+        flightList.add(new Flight("EBX369", "PH - JP", "08:00 - 12:30"));
 
         do {
             System.out.println("=========== EBX Airline Reservation System ===========");
@@ -22,29 +18,42 @@ public class Main {
             System.out.println("[4] Cancel Flight");
             System.out.println("[5] Exit");
             System.out.print("Enter your choice: ");
-            choice = choiceInput.nextInt();
+            choice = input.nextInt();
             System.out.println("======================================================");
 
             switch (choice) {
                 case 1:
-                    // code
+                    System.out.println("============  --- AVAILABLE  FLIGHTS ---  ============");
+                    Iterator itr = flightList.iterator();
+                    while (itr.hasNext()){
+                        System.out.println(itr.next());
+                    }
                     break;
                 case 2:
-                    // code
+//                    Reservation reservation = new Reservation();
+//                    System.out.println("--- BOOK A TICKET ---");
+//                    System.out.println("Enter your Name: ");
+//                    reservation.setName(input.nextLine());
+//                    System.out.println("[1] Business or [2] Economy?: ");
+//                    reservation.setFlightClass(input.nextInt());
+//                    System.out.println("Enter Flight Code: ");
+
                     break;
                 case 3:
-                    // code
+                    System.out.println("=============   --- TICKET  DETAILS ---  ==============");
+
                     break;
                 case 4:
-                    // code
+                    System.out.println("============   --- CANCEL  BOOKING ---  =============");
+
                     break;
                 case 5:
-                    // code
+                    System.out.println("Thank you for using EBX Airline System! Goodbye and have a safe flight!");
                     break;
                 default:
-                    System.out.println("Invalid choice");
+                    System.out.println("Invalid Choice.");
                     break;
             }
-        } while  (choice != 5);
+        } while (choice != 5);
     }
 }

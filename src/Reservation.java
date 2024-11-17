@@ -1,21 +1,31 @@
 // Base class
 public class Reservation {
-    protected String passengerName;
-    protected int passengerAge;
+    protected String name;
+    protected int flightClass;
 
-    public String getPassengerName() {
-        return passengerName;
+    public String getName() {
+        return name;
     }
 
-    public void setPassengerName(String passengerName) {
-        this.passengerName = passengerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getPassengerAge() {
-        return passengerAge;
+    public int getFlightClass() {
+        return flightClass;
     }
 
-    public void setPassengerAge(int passengerAge) {
-        this.passengerAge = passengerAge;
+    public void setFlightClass(int flightClass) {
+        this.flightClass = flightClass;
     }
+
+//    public String FlightClass(int flightClass){
+//        if(flightClass == 1){
+//            return "Business";
+//        }else if(flightClass == 2){
+//            return "Economy";
+//        }else {
+//            return "Invalid Flight Class";
+//        }
+//    }
 }
