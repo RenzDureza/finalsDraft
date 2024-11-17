@@ -25,9 +25,13 @@ public class Main {
             switch (choice) {
                 case 1:
                     System.out.println("============  --- AVAILABLE  FLIGHTS ---  ============");
-                    Iterator itr = flightList.iterator();
+                    Iterator<Flight> itr = flightList.iterator(); // iniba ko lng para mabasa nung iterator
                     while (itr.hasNext()){
-                        System.out.println(itr.next());
+                        // System.out.println(itr.next()); ibahihin ko to para madisplay din yung seatplan
+                        Flight flight = itr.next();
+                        System.out.println(flight);
+                        flight.displaySeats();
+                        System.out.println();
                     }
                     break;
                 case 2:
@@ -52,7 +56,7 @@ public class Main {
                     }
 
                     if (myFlight != null) {
-                        System.out.println("[1] Business or [2] Economy?: ");
+                        System.out.print("[1] Business Class [2] Economy Class: ");
                         int seatClass = input.nextInt();
                         input.nextLine();
 
@@ -65,20 +69,23 @@ public class Main {
                         myFlight.markSeat(row, column);
 
                         double ticketPrice = myFlight.getFlightPrice();
-//                        if (seatClass == 1) {
-//                            ticketPrice -= 300;
-//                        } else if (seatClass == 2) {
-//                            ticketPrice += 300;
-//                        }
+                        if (seatClass == 1) {
+                            ticketPrice += 1500;
+                        } else if (seatClass == 2) {
+                            ticketPrice += 300;
+                        }
 
                         Ticket myTicket = new Ticket(name, age, flightCode, seatClass, ticketPrice, row, column);
                         ticketList.add(myTicket);
+
+                        System.out.println("Seat successfully booked! Updated seat map:");
+                        myFlight.displaySeats();
                     }
                     break;
 
                 case 3:
                     System.out.println("=============   --- TICKET  DETAILS ---  ==============");
-                    System.out.println("Enter your Name: ");
+                    System.out.print("Enter your Name: ");
                     String nameSearch = input.next();
 
                     for (Ticket ticket : ticketList) {
