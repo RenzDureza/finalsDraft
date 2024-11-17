@@ -1,8 +1,16 @@
 public class Ticket extends Reservation {
+    public String flightCode;
+    public int seatClass;
     public double ticketPrice;
+    public int rowSeat;
+    public int colSeat;
 
-    public Ticket(String passengerName, double ticketPrice) {
-        this.name = name;
+    public Ticket(String name, int age, String flightCode, int seatClass, double ticketPrice, int rowSeat, int colSeat) {
+        super(name, age);
+        this.flightCode = flightCode;
+        this.seatClass = seatClass;
+        this.rowSeat = rowSeat;
+        this.colSeat = colSeat;
         this.ticketPrice = ticketPrice;
     }
 
@@ -10,10 +18,14 @@ public class Ticket extends Reservation {
         return ticketPrice;
     }
 
-    // functions
-
-    // suggestion ko
-
-    // function for generating ticket file, chill lang muna siguro tayo dito hindi pa naman natuturo.
+    public void viewTicket() {
+        System.out.println("Ticket Name: " + getName());
+        System.out.println("Ticket Age: " + getAge());
+        System.out.println("Flight Code: " + flightCode);
+        System.out.println("Seat Class: " + seatClass);
+        System.out.println("Row Seat: " + rowSeat);
+        System.out.println("Col Seat: " + colSeat);
+        System.out.println("Ticket Price: " + ticketPrice);
+    }
 
 }

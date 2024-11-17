@@ -1,18 +1,32 @@
 // Base class
 public class Reservation {
-    protected String name;
-    protected int flightClass;
+    private String name;
+    private int age;
+    private int flightClass;
+
+    public Reservation(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
     public String getName() {
         return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getFlightClass() {
+        return flightClass;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public int getFlightClass() {
-        return flightClass;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public void setFlightClass(int flightClass) {

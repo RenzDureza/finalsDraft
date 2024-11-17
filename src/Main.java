@@ -6,9 +6,10 @@ public class Main {
         int choice;
 
         List<Flight> flightList = new ArrayList<>();
-        flightList.add(new Flight("EBX123", "PH - CN", "09:00 - 14:00"));
-        flightList.add(new Flight("EBX142", "PH - KR", "04:00 - 08:00"));
-        flightList.add(new Flight("EBX369", "PH - JP", "08:00 - 12:30"));
+        List<Ticket> ticketList = new ArrayList<>();
+        flightList.add(new Flight("EBX123", "PH - CN", "09:00 - 14:00",300));
+        flightList.add(new Flight("EBX142", "PH - KR", "04:00 - 08:00",500));
+        flightList.add(new Flight("EBX369", "PH - JP", "08:00 - 12:30",600));
 
         do {
             System.out.println("=========== EBX Airline Reservation System ===========");
@@ -30,18 +31,61 @@ public class Main {
                     }
                     break;
                 case 2:
-//                    Reservation reservation = new Reservation();
-//                    System.out.println("--- BOOK A TICKET ---");
-//                    System.out.println("Enter your Name: ");
-//                    reservation.setName(input.nextLine());
-//                    System.out.println("[1] Business or [2] Economy?: ");
-//                    reservation.setFlightClass(input.nextInt());
-//                    System.out.println("Enter Flight Code: ");
+                    System.out.println("--- BOOK A TICKET ---");
+                    System.out.print("Enter your Name: ");
+                    input.nextLine();
+                    String name = input.nextLine();
 
+                    System.out.print("Enter your Age: ");
+                    int age = input.nextInt();
+                    input.nextLine();
+
+                    System.out.print("Enter Flight Code: ");
+                    String flightCode = input.next();
+
+                    Flight myFlight = null;
+                    for (Flight flight : flightList) {
+                        if (flight.getFlightCode().equals(flightCode)) {
+                            myFlight = flight;
+                            break;
+                        }
+                    }
+
+                    if (myFlight != null) {
+                        System.out.println("[1] Business or [2] Economy?: ");
+                        int seatClass = input.nextInt();
+                        input.nextLine();
+
+                        myFlight.displaySeats();
+                        System.out.print("Enter your Row: ");
+                        int row = input.nextInt();
+                        System.out.print("Enter your Column: ");
+                        int column = input.nextInt();
+
+                        myFlight.markSeat(row, column);
+
+                        double ticketPrice = myFlight.getFlightPrice();
+//                        if (seatClass == 1) {
+//                            ticketPrice -= 300;
+//                        } else if (seatClass == 2) {
+//                            ticketPrice += 300;
+//                        }
+
+                        Ticket myTicket = new Ticket(name, age, flightCode, seatClass, ticketPrice, row, column);
+                        ticketList.add(myTicket);
+                    }
                     break;
+
                 case 3:
                     System.out.println("=============   --- TICKET  DETAILS ---  ==============");
+                    System.out.println("Enter your Name: ");
+                    String nameSearch = input.next();
 
+                    for (Ticket ticket : ticketList) {
+                        if (ticket.getName().equals(nameSearch)) {
+                            ticket.viewTicket();
+                        }
+                    }
                     break;
                 case 4:
                     System.out.println("============   --- CANCEL  BOOKING ---  =============");
