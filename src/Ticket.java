@@ -25,7 +25,7 @@ public class Ticket extends Reservation {
         System.out.println("Seat Class: " + seatClass);
         System.out.println("Row Seat: " + rowSeat);
         System.out.println("Col Seat: " + colSeat);
-        System.out.println("Ticket Price: " + ticketPrice);
+        System.out.println("Ticket Price: P" + ticketPrice);
     }
 
 }

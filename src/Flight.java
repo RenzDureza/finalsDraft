@@ -14,8 +14,8 @@ public class Flight{
         this.destination = destination;
         this.time = time;
         this.flightPrice = flightPrice;
-        this.row = 5;
-        this.col = 6;
+        this.row = 6; //see line 54
+        this.col = 7; //see line 56
         this.seat = new char[row][col];
 
         for (int i = 0; i < row; i++) {
@@ -45,8 +45,16 @@ public class Flight{
         System.out.println("+---------------------------+");
         System.out.println("|          Cockpit          |");
         System.out.println("+---------------------------+     Business Class");
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
+
+        System.out.print(" Col  "); //for clarity
+        for (int colNum = 1; colNum < col; colNum++) {
+            System.out.print(" " + colNum + " ");
+        }
+
+        System.out.println();
+        for (int i = 1; i < row; i++) { // ginawa ko 1 para di siya 0 index
+            System.out.print("Row " + i + " "); //for clarity
+            for (int j = 1; j < col; j++) { // ginawa ko 1 para di siya 0 index
                 System.out.print("[" + seat[i][j] + "]");
             }
             System.out.println();
