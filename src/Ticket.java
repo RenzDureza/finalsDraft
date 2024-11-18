@@ -1,11 +1,11 @@
 public class Ticket extends Reservation {
     public String flightCode;
-    public int seatClass;
+    public String seatClass;
     public double ticketPrice;
     public int rowSeat;
     public int colSeat;
 
-    public Ticket(String name, int age, String flightCode, int seatClass, double ticketPrice, int rowSeat, int colSeat) {
+    public Ticket(String name, int age, String flightCode, String seatClass, double ticketPrice, int rowSeat, int colSeat) {
         super(name, age);
         this.flightCode = flightCode;
         this.seatClass = seatClass;
