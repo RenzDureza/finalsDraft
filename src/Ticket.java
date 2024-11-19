@@ -14,6 +14,9 @@ public class Ticket extends Reservation {
         this.ticketPrice = ticketPrice;
     }
 
+    public String getFlightCode() {
+        return flightCode;
+    }
     public double getTicketPrice() {
         return ticketPrice;
     }
@@ -27,5 +30,4 @@ public class Ticket extends Reservation {
         System.out.println("Col Seat: " + colSeat);
         System.out.println("Ticket Price: P" + ticketPrice);
     }
-
 }

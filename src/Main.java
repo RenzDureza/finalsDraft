@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,9 +8,9 @@ public class Main {
 
         List<Flight> flightList = new ArrayList<>();
         List<Ticket> ticketList = new ArrayList<>();
-        flightList.add(new Flight("EBX123", "PH - CN", "09:00 - 14:00",300));
-        flightList.add(new Flight("EBX142", "PH - KR", "04:00 - 08:00",500));
-        flightList.add(new Flight("EBX369", "PH - JP", "08:00 - 12:30",600));
+        flightList.add(new Flight("EBX123", "PH - CN", "09:00 - 14:00",3440));
+        flightList.add(new Flight("EBX142", "PH - KR", "04:00 - 08:00",9645));
+        flightList.add(new Flight("EBX369", "PH - JP", "08:00 - 12:30",13510));
 
         do {
             System.out.println("=========== EBX Airline Reservation System ===========");
@@ -38,21 +39,14 @@ public class Main {
                     consolePause();
                     clearScreen();
                     break;
+
                 case 2:
                     clearScreen();
                     System.out.println("--- AVAILABLE FLIGHTS ---");
                     for (Flight flight : flightList) {
                         System.out.println(flight);
                     }
-
                     System.out.println("--- BOOK A TICKET ---");
-                    System.out.print("Enter your Name: ");
-                    String name = input.nextLine();
-
-                    System.out.print("Enter your Age: ");
-                    int age = input.nextInt();
-                    input.nextLine();
-
                     System.out.print("Enter Flight Code: ");
                     String flightCode = input.nextLine();
 
@@ -64,10 +58,28 @@ public class Main {
                         }
                     }
 
+                    System.out.print("Enter your Name: ");
+                    String name = input.nextLine();
+                    System.out.print("Enter your Age: ");
+                    int age = input.nextInt();
+                    input.nextLine();
+
 
                     if (myFlight != null) {
-                        System.out.print("[1] Business Class [2] Economy Class: ");
+                        System.out.print("Business Class [1] || Economy Class [2]: ");
                         String seatClass = input.nextLine();
+
+                        double ticketPrice = myFlight.getFlightPrice();
+                        if (seatClass.equals("1")) {
+                            ticketPrice += 4500;
+                            seatClass = "Business Class";
+                        } else if (seatClass.equals("2")) {
+                            ticketPrice = myFlight.getFlightPrice();
+                            seatClass = "Economy Class";
+                        } else {
+                            System.out.println("Invalid choice.");
+                            break;
+                        }
 
                         myFlight.displaySeats();
                         System.out.print("Enter your Row: ");
@@ -76,18 +88,6 @@ public class Main {
                         int column = input.nextInt();
 
                         myFlight.markSeat(row, column);
-
-                        double ticketPrice = myFlight.getFlightPrice();
-                        if (seatClass.equals("1")) {
-                            ticketPrice += 1500;
-                            seatClass = "Business Class";
-                        } else if (seatClass.equals("2")) {
-                            ticketPrice += 300;
-                            seatClass = "Economy Class";
-                        } else {
-                            System.out.println("Invalid choice.");
-                            break;
-                        }
 
                         Ticket myTicket = new Ticket(name, age, flightCode, seatClass, ticketPrice, row, column);
                         ticketList.add(myTicket);
@@ -105,10 +105,10 @@ public class Main {
                     clearScreen();
                     System.out.println("=============   --- TICKET  DETAILS ---  ==============");
                     System.out.print("Enter your Name: ");
-                    String nameSearch = input.nextLine();
+                    String ticketName = input.nextLine();
 
                     for (Ticket ticket : ticketList) {
-                        if (ticket.getName().equals(nameSearch)) {
+                        if (ticket.getName().equals(ticketName)) {
                             ticket.viewTicket();
                         } else {
                             System.out.println("Ticket not found.");
@@ -118,16 +118,62 @@ public class Main {
                     consolePause();
                     clearScreen();
                     break;
+
                 case 4:
                     clearScreen();
                     System.out.println("============   --- CANCEL  BOOKING ---  =============");
+                    for (Flight flight : flightList) {
+                        System.out.println(flight);
+                    }
+                    System.out.print("Enter Flight Code: ");
+                    String searchFlightCode = input.nextLine();
+
+                    Ticket searchTicket = null;
+                    for (Ticket ticket : ticketList) {
+                        if (ticket.getFlightCode().equals(searchFlightCode)) {
+                            searchTicket = ticket;
+                            break;
+                        }
+                    }
+
+                    if (searchTicket != null){
+                        System.out.print("Enter your Name: ");
+                        String searchName = input.nextLine();
+
+                        if (searchTicket.getName().equals(searchName)){
+                            searchTicket.viewTicket();
+                            String cancelConfirm;
+                            do{
+                                System.out.print("Confirm Cancellation of Ticket? [Y/N]: ");
+                                cancelConfirm = input.nextLine();
+                                if (cancelConfirm.equals("Y")){
+                                    ticketList.remove(searchTicket);
+                                    System.out.println("Your ticket has been successfully cancelled.");
+                                } else if (cancelConfirm.equals("N")){
+                                    System.out.println("Ticket cancellation process has been cancelled.");
+                                } else {
+                                    System.out.println("Invalid input.");
+                                }
+                            }while(!cancelConfirm.equals("Y") && !cancelConfirm.equals("N"));
+                        } else {
+                            System.out.println("Name not found.");
+                        }
+
+                    } else {
+                        System.out.println("Flight not found.");
+                        consolePause();
+                        clearScreen();
+                        break;
+                    }
 
                     consolePause();
                     clearScreen();
                     break;
+
                 case 5:
                     System.out.println("Thank you for using EBX Airline System! Goodbye and have a safe flight!");
                     break;
+
                 default:
                     System.out.println("Invalid Choice.");
                     break;
@@ -146,3 +192,10 @@ public class Main {
         input.nextLine();
     }
 }
+
+/* TODO:
+    - Storing new ticket
+    - Test delete function
+    - Seat map
+    -
+*/
