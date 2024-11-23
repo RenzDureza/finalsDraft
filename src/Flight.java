@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Flight{
     private String flightCode;
     private String destination;
@@ -8,6 +6,8 @@ public class Flight{
     private  int row;
     private  int col;
     public char[][] seat;
+
+
 
     public Flight(String flightCode, String destination, String time, double flightPrice) {
         this.flightCode = flightCode;
@@ -23,47 +23,75 @@ public class Flight{
                 seat[i][j] = ' ';
             }
         }
+
     }
 
     public String getFlightCode() {
         return flightCode;
     }
 
-    public String getDestination() {
-        return destination;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
     public double getFlightPrice() {
         return flightPrice;
     }
 
-    public void displaySeats() {
-        System.out.println("+---------------------------+");
-        System.out.println("|          Cockpit          |");
-        System.out.println("+---------------------------+     Business Class");
+    public void displaySeats(String seatClass) {
 
-        System.out.print(" Col  "); //for clarity
-        for (int colNum = 1; colNum < col; colNum++) {
-            System.out.print(" " + colNum + " ");
+        System.out.print("         ");
+        for (int colNum = 1; colNum <= col - 1; colNum++) {
+            System.out.print(" " + colNum + "   ");
         }
-
         System.out.println();
-        for (int i = 1; i < row; i++) { // ginawa ko 1 para di siya 0 index
-            System.out.print("Row " + i + " "); //for clarity
-            for (int j = 1; j < col; j++) { // ginawa ko 1 para di siya 0 index
-                System.out.print("[" + seat[i][j] + "]");
+
+
+        if (seatClass.equals("Business")) {
+            System.out.println("      +---------------------------------+");
+            System.out.println("      |             Cockpit             |");
+            System.out.println("      +---------------------------------+      Business Class");
+
+            for (int i = 1; i < 3; i++) {
+                System.out.print("Row " + i + " | ");
+                for (int j = 1; j < col; j++) {
+                    System.out.print(" [" + (seat[i][j]) + "] ");
+                }
+                System.out.println("  |");
+//                System.out.println();
             }
-            System.out.println();
+        } else if (seatClass.equals("Economy")) {
+            System.out.println("      +---------------------------------+      Economy Class");
+            for (int i = 3; i < 6; i++) {
+                System.out.print("Row " + i + " | ");
+                for (int j = 1; j < col; j++) {
+                    System.out.print(" [" + (seat[i][j]) + "] ");
+                }
+                System.out.println("  |");
+//                System.out.println();
+            }
         }
     }
 
-    public boolean markSeat(int row, int col) {
+    public boolean markSeat(int row, int col, String seatClass) {
+        int businessRows = 2;
+        int economyRows= 5;
+
+        if (seatClass.equals("Business")) {
+            if (row < 0 || row >= businessRows) {
+                System.out.println("Invalid row");
+                return false;
+            }
+        } else if (seatClass.equals("Economy")) {
+            if (row < businessRows || row >= economyRows) {
+                System.out.println("Invalid row");
+                return false;
+            }
+        } else {
+            System.out.println("Invalid seat class");
+            return false;
+        }
+
         if (seat[row][col] == ' ') {
             seat[row][col] = 'X';
+            System.out.println("Seat successfully booked! Updated seat map:");
+            displaySeats(seatClass);
             return true;
         } else {
             System.out.println("Seat already occupied. Choose another one.");
@@ -71,8 +99,17 @@ public class Flight{
         }
     }
 
+    public boolean removeSeat(int rowSeat, int colSeat){
+        if (seat[rowSeat][colSeat] == 'X'){
+            seat[rowSeat][colSeat] = ' ';
+            System.out.println("Seat successfully cleared.");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String toString() {
         return "Flight Code: " + flightCode + "  ||  " + "Destination:  " + destination + "  ||  " + " Time: " + time;
     }
-
 }

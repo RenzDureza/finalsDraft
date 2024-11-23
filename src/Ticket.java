@@ -17,17 +17,8 @@ public class Ticket extends Reservation {
     public String getFlightCode() {
         return flightCode;
     }
-    public double getTicketPrice() {
-        return ticketPrice;
-    }
 
-    public void viewTicket() {
-        System.out.println("Ticket Name: " + getName());
-        System.out.println("Ticket Age: " + getAge());
-        System.out.println("Flight Code: " + flightCode);
-        System.out.println("Seat Class: " + seatClass);
-        System.out.println("Row Seat: " + rowSeat);
-        System.out.println("Col Seat: " + colSeat);
-        System.out.println("Ticket Price: P" + ticketPrice);
+    public String viewTicket() {
+        return "Ticket Name: " + getName() + "\nTicket Age: " + getAge() + "\nFlight Code: " + flightCode + "\nSeat Class: " + seatClass + "\nRow Seat: " + rowSeat + "\nCol Seat: " + colSeat + "\nTicket Price: P" + ticketPrice;
     }
 }
