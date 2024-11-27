@@ -58,6 +58,7 @@ public class Main {
                         }
                     }
 
+                    
                     if (myFlight != null) {
                         System.out.print("Enter your Name: ");
                         String name = input.nextLine();
@@ -242,6 +243,6 @@ public class Main {
 }
 
 /* LIMITATIONS:
-    - Must enter full exact name for the program to read (is that even a limitation?)
+    - Must enter full exact name for the program to read
     - Not fully optimized
 */

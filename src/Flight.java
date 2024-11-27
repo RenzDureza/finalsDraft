@@ -70,6 +70,7 @@ public class Flight{
     }
 
     public boolean markSeat(int row, int col, String seatClass) {
+        int totalCol = 6;
         int businessRows = 2;
         int economyRows= 5;
 
@@ -85,6 +86,11 @@ public class Flight{
             }
         } else {
             System.out.println("Invalid seat class");
+            return false;
+        }
+
+        if (col < 0 || col >= totalCol) {
+            System.out.println("Invalid row");
             return false;
         }
 
