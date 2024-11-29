@@ -1,6 +1,7 @@
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -57,7 +58,6 @@ public class Main {
                         }
                     }
 
-                    
                     if (myFlight != null) {
                         System.out.print("Enter your Name: ");
                         String name = input.nextLine();
@@ -147,52 +147,45 @@ public class Main {
                     } else { // NEXT STEP - CHECK IF THE PERSON'S NAME HAS A TICKET
                         System.out.print("Enter your Name: ");
                         String searchName = input.nextLine();
-
                         List<Ticket> searchTicket = new ArrayList<>();
                         for (Ticket ticket : ticketList) { // LISTS ALL SAME NAMES OF DIFFERENT TICKETS
                             if (ticket.getFlightCode().equals(searchFlightCode) && ticket.getName().equalsIgnoreCase(searchName)) {
                                 searchTicket.add(ticket);
                             }
                         }
-
-                        Ticket ticketToCancel = null;
+                        Ticket cancelTicket = null;
                         if (searchTicket.isEmpty()) {
                             System.out.println("Ticket not found in flight for the provided name: " + searchName);
-
                         } else if (searchTicket.size() == 1) { // IF NAME IS THE ONLY ONE EXISTING IN FLIGHT
-                            ticketToCancel = searchTicket.getFirst();
-                            System.out.println("-----------------------");
-                            System.out.println(ticketToCancel.viewTicket());
-                            System.out.println("-----------------------");
-
+                            searchTicket.getFirst().viewTicket();
+                            cancelTicket = searchTicket.getFirst();
                         } else { // IF MULTIPLE NAMES EXIST IN FLIGHT
                             System.out.println("Found " + searchTicket.size() + " ticket(s) for the name: " + searchName);
                             System.out.println("-----------------------");
-                            for (int i=0; i<searchTicket.size(); i++){ // DISPLAY ALL FOUND NAMES
+                            for (int i=0; i< searchTicket.size(); i++){ // DISPLAY ALL FOUND NAMES
                                 System.out.println("Ticket " + (i+1) + ": ");
                                 System.out.println(searchTicket.get(i).viewTicket());
                                 System.out.println("-----------------------");
                             }
-
                             System.out.print("Enter ticket # to be cancelled: ");
                             int ticketNo = input.nextInt(); input.nextLine();
 
                             if (ticketNo > 0 && ticketNo <= searchTicket.size()) {
-                                ticketToCancel = searchTicket.get(ticketNo - 1);
+                                cancelTicket = searchTicket.get(ticketNo - 1);
+
                             } else {
                                 System.out.println("Invalid input.");
                             }
                         }
-
-                        if (ticketToCancel != null) {
+                        if (cancelTicket != null) {
                             String cancelConfirm;
                             while(true) {
                                 System.out.print("Confirm Cancellation of Ticket? [Y/N]: ");
                                 cancelConfirm = input.nextLine();
                                 if (cancelConfirm.equalsIgnoreCase("Y")) {
-                                    searchFlight.removeSeat(ticketToCancel.rowSeat, ticketToCancel.colSeat); // CLEARS SEAT IN FLIGHT
-                                    System.out.println("Ticket for " + ticketToCancel.getName() + " has been successfully cancelled.");
-                                    ticketList.remove(ticketToCancel);
+                                    searchFlight.removeSeat(cancelTicket.rowSeat, cancelTicket.colSeat); // CLEARS SEAT IN FLIGHT
+                                    System.out.println("Ticket for " + cancelTicket.getName() + " has been successfully cancelled.");
+                                    ticketList.remove(cancelTicket);
                                     break;
 
                                 } else if (cancelConfirm.equalsIgnoreCase("N")) {
@@ -247,3 +240,8 @@ public class Main {
         }
     }
 }
+
+/* LIMITATIONS:
+    - Must enter full exact name for the program to read (is that even a limitation?)
+    - Not fully optimized
+*/
