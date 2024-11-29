@@ -54,7 +54,6 @@ public class Flight{
                     System.out.print(" [" + (seat[i][j]) + "] ");
                 }
                 System.out.println("  |");
-//                System.out.println();
             }
         } else if (seatClass.equals("Economy")) {
             System.out.println("      +---------------------------------+      Economy Class");
@@ -64,14 +63,14 @@ public class Flight{
                     System.out.print(" [" + (seat[i][j]) + "] ");
                 }
                 System.out.println("  |");
-//                System.out.println();
             }
         }
     }
 
     public boolean markSeat(int row, int col, String seatClass) {
-        int businessRows = 2;
-        int economyRows= 5;
+        int totalCol = 7;
+        int businessRows = 3;
+        int economyRows= 6;
 
         if (seatClass.equals("Business")) {
             if (row < 0 || row >= businessRows) {
@@ -85,6 +84,11 @@ public class Flight{
             }
         } else {
             System.out.println("Invalid seat class");
+            return false;
+        }
+
+        if (col < 0 || col >= totalCol) {
+            System.out.println("Invalid column");
             return false;
         }
 
